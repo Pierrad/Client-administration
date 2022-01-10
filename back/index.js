@@ -64,6 +64,7 @@ app.get('/', (req, res) => {
     });
 })
 
+app.get('/users/logout', (req, res) => { userCtrl.logout(req, res); }); 
 app.post('/users', (req, res) => { userCtrl.register(req, res); });  
 app.get('/users/:id', (req, res) => { userCtrl.getUser(req, res); });
 app.delete('/users/:id', (req, res) => { userCtrl.deleteUser(req, res); }); 
