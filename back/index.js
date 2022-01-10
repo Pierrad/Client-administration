@@ -59,7 +59,7 @@ app.all('*', function(req, res, next){
 
 app.get('/', (req, res) => {
     res.send({
-        "message": "hello and welcome to production client administration api",
+        "message": "hello and welcome to client administration api",
         "version": 1.0
     });
 })
