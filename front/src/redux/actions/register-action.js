@@ -1,0 +1,3 @@
+export const SET_LOADING = "SET_LOADING"
+export const POST_REGISTER = "POST_REGISTER"
+export const REGISTER_ERROR = "REGISTER_ERROR"
