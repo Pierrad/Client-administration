@@ -20,6 +20,10 @@ function Register({ onSubmit, error, resetError }) {
   const [inputPassword, setInputPassword] = useState('');
   const [inputPseudo, setInputPseudo] = useState('');
   const [inputMail, setInputMail] = useState('');
+  const [inputFirstName, setInputFirstName] = useState('');
+  const [inputLastName, setInputLastName] = useState('');
+  const [inputPostalAdress, setInputPostalAdress] = useState('');
+  
 
   useEffect(() => {
     resetError()
@@ -43,6 +47,18 @@ function Register({ onSubmit, error, resetError }) {
     setInputPassword(e.target.value);
   }
 
+  const handleFirstNameChange = (e) => {
+    setInputFirstName(e.target.value);
+  }
+
+  const handleLastNameChange = (e) => {
+    setInputLastName(e.target.value);
+  }
+
+  const handlePostalAdressChange = (e) => {
+    setInputPostalAdress(e.target.value);
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +67,9 @@ function Register({ onSubmit, error, resetError }) {
         email: inputMail,
         password: inputPassword,
         username: inputPseudo,
+        firstName: inputFirstName,
+        lastName: inputLastName,
+        postalAdress: inputPostalAdress,
       }
     );
   }
@@ -93,6 +112,9 @@ function Register({ onSubmit, error, resetError }) {
           <Input type="text" placeholder="Pseudo" value={inputPseudo} onChange={handlePseudoChange}  />
           <Input type="text" name="" placeholder="Email" value={inputMail} onChange={handleMailChange} />
           <Input type="password" name="" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
+          <Input type="text" name="" placeholder="FirstName" value={inputFirstName} onChange={handleFirstNameChange} />
+          <Input type="text" name="" placeholder="LastName" value={inputLastName} onChange={handleLastNameChange} />
+          <Input type="text" name="" placeholder="PostalAdress" value={inputPostalAdress} onChange={handlePostalAdressChange} />
           <Button type="submit" onClick={handleSubmit}>Create Account</Button>
           <p>Already have an account?</p>
           <BasicLink to="/login">Sign in here</BasicLink>
@@ -114,7 +136,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: ({ email, password, username, exchange, key, secret }) => dispatch({ type: POST_REGISTER, payload: { email, password, username, exchange, key, secret } }),
+  onSubmit: ({ email, password, username,firstName,lastName,postalAdress }) => dispatch({ type: POST_REGISTER, payload: { email, password, username,firstName,lastName,postalAdress } }),
   resetError: () => dispatch({ type: REGISTER_ERROR, payload: '' }),
 })
 
