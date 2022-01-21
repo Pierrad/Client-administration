@@ -1,8 +1,10 @@
 # Front for client part
 
+Make sure to have Node >= 15
+
 # Installation
 
-- ```nvm use```
+- ```nvm use``` (if you're on MacOS or Linux and if you have nvm)) 
 - ```npm install```
 - ```npm run start```
 
