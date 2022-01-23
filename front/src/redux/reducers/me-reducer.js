@@ -2,6 +2,7 @@ import {
   SET_ME,
   GET_ME,
   LOGOUT,
+  DELETE,
 } from '../actions/me-action'
 
 // Define your state here
@@ -28,7 +29,11 @@ const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         me: {},
-        portfolio: {}
+      }
+    case DELETE:
+      return {
+        ...state,
+        me: {},
       }
     // Return default state if you didn't match any case
     default:

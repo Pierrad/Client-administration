@@ -1,4 +1,5 @@
 // Import the redux-saga/effects
+import { push } from 'connected-react-router'
 import {
   put,
   call,
@@ -24,13 +25,11 @@ import {
 function* setAuth({ payload }) {
   yield put({ type: SET_LOADING })
 
-  const productAppURL = process.env.REACT_APP_PRODUCT_URL
-
   const authResponse = yield call(auth, payload)
 
   if (authResponse && !authResponse.error) {
     yield put({ type: SET_ME, payload: authResponse.user })
-    window.location.href = `${productAppURL}/dashboard?id=${authResponse.user._id}&token=${authResponse.user.token.token}`
+    yield put(push('/dashboard/profile'))
   } else if (authResponse && authResponse.error) {
     yield put({ type: LOGIN_ERROR, payload: authResponse.message })
   }
