@@ -26,6 +26,7 @@ function* setRegistration({ payload }) {
   yield put({ type: SET_LOADING })
 
   const authResponse = yield call(register, payload)
+
   if (authResponse.success) {
     yield put(push('/login'))
   } else if (authResponse && authResponse.error) {

@@ -12,6 +12,9 @@ export const register = async (payload) => {
       "email": payload.email,
       "password": payload.password,
       "username": payload.username,
+      "firstName": payload.firstName,
+      "lastName": payload.lastName,
+      "address": payload.postalAdress,
     })
 
     return res.data
