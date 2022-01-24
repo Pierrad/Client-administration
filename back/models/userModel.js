@@ -15,14 +15,26 @@ const userShema = new mongoose.Schema({
         type: String,
         required: true
     },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
     token: {
         type: Map,
         of: String,
         default: {}
     },
-    subscriptions: {
-        type: Array,
-        default: ["standard"]
+    subscription: {
+        type: String,
+        default: "standard"
     }
 })
 
