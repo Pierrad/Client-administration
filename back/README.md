@@ -2,7 +2,7 @@
 
 # Installation
 
-- Node >= 15 (https://nodejs.org/en/)
+- Node > 15 (https://nodejs.org/en/)
 - MongoDB (https://docs.mongodb.com/manual/administration/install-community/)
 
 
