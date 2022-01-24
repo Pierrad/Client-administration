@@ -1,4 +1,4 @@
-//CHECK AVAILABLES ROUTES
+// Check les routes pour lesquelles on autorise l'accès
 const allowedRoutes = ['/', '/users'];
 exports.allowedRoutesCheck = (route) => {
     let endpoint = route.originalUrl.split('/')
@@ -8,7 +8,7 @@ exports.allowedRoutesCheck = (route) => {
     return false
 }
 
-//PASSWORD STRENGTH
+// On définit la force du mot de passe
 exports.passwordDefaultOptions = [
     {
       id: 0,

@@ -9,6 +9,8 @@ const helmet = require("helmet");
 const Utils = require("./utils/misc");
 const userCtrl = require("./controllers/userController");
 
+
+// Connexion à la base de données mongoDB
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_DB_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
     if (!err) {
@@ -18,6 +20,7 @@ mongoose.connect(process.env.MONGO_DB_URL, {useNewUrlParser: true, useUnifiedTop
     }
 });
 
+// On limite les requêtes pour éviter un DDOS
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10000,
@@ -28,11 +31,13 @@ const limiter = rateLimit({
     }
 });
 
+// On crée notre application express
 const app = express()
 app.use(bodyParser());
 app.use(limiter);
 app.use(helmet());
 
+// On définit le header de toutes nos requêtes
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -45,6 +50,7 @@ app.options('*', (req, res) => {
     res.status(200).send()
 })
 
+// Si la requête n'est pas permise alors on renvoie un message d'erreur sinon on log la route appellé dans la console
 app.all('*', function(req, res, next){
     if (!Utils.allowedRoutesCheck(req)) {
         return res.status(500).json({
@@ -57,13 +63,13 @@ app.all('*', function(req, res, next){
     }
 });
 
+// Les différentes routes de notre API
 app.get('/', (req, res) => {
     res.send({
         "message": "hello and welcome to client administration api",
         "version": 1.0
     });
-})
-
+});
 app.get('/users/logout', (req, res) => { userCtrl.logout(req, res); }); 
 app.post('/users', (req, res) => { userCtrl.register(req, res); });  
 app.get('/users/:id', (req, res) => { userCtrl.getUser(req, res); });
@@ -71,6 +77,7 @@ app.delete('/users/:id', (req, res) => { userCtrl.deleteUser(req, res); });
 app.post('/users/login', (req, res) => { userCtrl.login(req, res); });
 app.post('/users/subscription', (req, res) => { userCtrl.subscription(req, res); });
 
+// On démarre le serveur sur le port défini dans le fichier .env
 app.listen(process.env.API_PORT, () => {
     console.log(`✅ Example app listening at http://localhost:${process.env.API_PORT}`);
 })
