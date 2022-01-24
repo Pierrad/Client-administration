@@ -25,7 +25,7 @@ const DashboardProfile = ({ logout, me, deleteAccount }) => {
 
   const handleRedirectoToPayment = () => {
     const paymentAppURL = process.env.REACT_APP_PAYMENT_URL;
-    window.location.href = `${paymentAppURL}/?id=${_id}`;
+    window.location.href = `${paymentAppURL}/?id=${_id}&subscription_type=1`;
   }
 
   const handleChangeInputMail = (e) => {

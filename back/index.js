@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+const path = require('path');
 
 const Utils = require("./utils/misc");
 const userCtrl = require("./controllers/userController");
@@ -37,11 +38,17 @@ app.use(bodyParser());
 app.use(limiter);
 app.use(helmet());
 
+
+
 // On définit le header de toutes nos requêtes
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Methods", "PUT, PATCH, POST, GET, DELETE, OPTIONS");
+    res.header(
+        'Content-Security-Policy',
+        "default-src 'self' 'unsafe-eval'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self'; frame-src 'self'"
+      );
     next();
 });
 
@@ -70,6 +77,8 @@ app.get('/', (req, res) => {
         "version": 1.0
     });
 });
+
+app.use('/doc', express.static(__dirname + '/doc'));
 app.get('/users/logout', (req, res) => { userCtrl.logout(req, res); }); 
 app.post('/users', (req, res) => { userCtrl.register(req, res); });  
 app.get('/users/:id', (req, res) => { userCtrl.getUser(req, res); });

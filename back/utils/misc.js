@@ -1,5 +1,5 @@
 // Check les routes pour lesquelles on autorise l'accès
-const allowedRoutes = ['/', '/users'];
+const allowedRoutes = ['/', '/users', '/doc'];
 exports.allowedRoutesCheck = (route) => {
     let endpoint = route.originalUrl.split('/')
     if (allowedRoutes.indexOf('/'+endpoint[1]) > -1) {
