@@ -6,8 +6,10 @@ import { ConnectedRouter } from "connected-react-router";
 
 import Login from './pages/login'
 import Register from './pages/register'
+import DashboardProfile from './pages/dashboardProfile'
 
 import Header from "./components/Header";
+import GuardedRoute from './router';
 
 import { lightTheme } from './theme/themes'
 
@@ -22,9 +24,11 @@ function App() {
         <ConnectedRouter history={history}>
           <Header />
           <Switch>
-            <Route path="/" exact component={() => window.location.href = `${process.env.REACT_APP_PRODUCT_URL}`} />
+            <Route path="/" exact component={() => <Login />} />
             <Route path="/login" exact component={() => <Login />}/>
             <Route path="/register" exact component={() => <Register/>}/>
+            <Route path="/dashboard/recipe" exact component={() => window.location.href = `${process.env.REACT_APP_PRODUCT_URL}/dashboard/recipe`}/>
+            <GuardedRoute path="/dashboard/profile/" exact component={() => <DashboardProfile /> }/>
           </Switch>
         </ConnectedRouter>
         </PersistGate>

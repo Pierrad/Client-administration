@@ -112,9 +112,9 @@ function Register({ onSubmit, error, resetError }) {
           <Input type="text" placeholder="Pseudo" value={inputPseudo} onChange={handlePseudoChange}  />
           <Input type="text" name="" placeholder="Email" value={inputMail} onChange={handleMailChange} />
           <Input type="password" name="" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
-          <Input type="text" name="" placeholder="FirstName" value={inputFirstName} onChange={handleFirstNameChange} />
-          <Input type="text" name="" placeholder="LastName" value={inputLastName} onChange={handleLastNameChange} />
-          <Input type="text" name="" placeholder="PostalAdress" value={inputPostalAdress} onChange={handlePostalAdressChange} />
+          <Input type="text" name="" placeholder="First name" value={inputFirstName} onChange={handleFirstNameChange} />
+          <Input type="text" name="" placeholder="Last name" value={inputLastName} onChange={handleLastNameChange} />
+          <Input type="text" name="" placeholder="Address" value={inputPostalAdress} onChange={handlePostalAdressChange} />
           <Button type="submit" onClick={handleSubmit}>Create Account</Button>
           <p>Already have an account?</p>
           <BasicLink to="/login">Sign in here</BasicLink>
@@ -136,7 +136,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: ({ email, password, username,firstName,lastName,postalAdress }) => dispatch({ type: POST_REGISTER, payload: { email, password, username,firstName,lastName,postalAdress } }),
+  onSubmit: ({ email, password, username, firstName, lastName, postalAdress }) => dispatch({ type: POST_REGISTER, payload: { email, password, username, firstName, lastName, postalAdress } }),
   resetError: () => dispatch({ type: REGISTER_ERROR, payload: '' }),
 })
 
