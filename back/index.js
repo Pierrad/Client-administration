@@ -68,8 +68,8 @@ app.get('/users/logout', (req, res) => { userCtrl.logout(req, res); });
 app.post('/users', (req, res) => { userCtrl.register(req, res); });  
 app.get('/users/:id', (req, res) => { userCtrl.getUser(req, res); });
 app.delete('/users/:id', (req, res) => { userCtrl.deleteUser(req, res); }); 
-
-app.post('/users/login', (req, res) => { userCtrl.login(req, res); }); 
+app.post('/users/login', (req, res) => { userCtrl.login(req, res); });
+app.post('/users/subscription', (req, res) => { userCtrl.subscription(req, res); });
 
 app.listen(process.env.API_PORT, () => {
     console.log(`✅ Example app listening at http://localhost:${process.env.API_PORT}`);
