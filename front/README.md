@@ -3,6 +3,7 @@
 # Installation
 
 - ```nvm use (Not needed if you have Node > 15)```
+- ```cp .env.example .env```
 - ```npm install```
 - ```npm run start```
 
