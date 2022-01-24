@@ -1,14 +1,15 @@
-import React from "react"
+import React from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom"
-import { connect } from "react-redux"
-
 
 import logo from "../../assets/images/logo.png"
 
 import * as SC from "./styled"
 
 const Header = (props) => {
-  const { isConnected, me } = props
+  const { me } = props
+  const isConnected = me._id !== undefined
+
   const history = useHistory();
 
   function handleHomeClick() {
@@ -20,7 +21,7 @@ const Header = (props) => {
   }
 
   function handleProfileClick() {
-    history.push("/dashboard");
+    history.push("/dashboard/profile");
   }
 
   return (
@@ -29,7 +30,7 @@ const Header = (props) => {
       <SC.Right>
         {isConnected ? (
           <SC.Profile>
-            <SC.Name>{me.username}</SC.Name>
+            <SC.Name>Hello {me.username}</SC.Name>
             <SC.Icon onClick={handleProfileClick} />
           </SC.Profile>
         ) : (
@@ -41,9 +42,9 @@ const Header = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  me: state.me.me,
-});
+  me: state.me.me
+})
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
