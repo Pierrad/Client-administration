@@ -10,7 +10,7 @@ const USER_TOKEN_EXPIRATION = 86400;
 
 exports.register = async (req, res) => {
     try {
-        if (!req.body.username || !req.body.password || !req.body.email) {
+        if (!req.body.username || !req.body.password || !req.body.email || !req.body.firstName || !req.body.lastName || !req.body.address) {
             return res.status(200).json({
                 "message": "missing args",
                 "success": false
@@ -42,7 +42,10 @@ exports.register = async (req, res) => {
         let newUser = new User({
             "username": req.body.username,
             "password": bcrypt.hashSync(req.body.password, 10),
-            "email": req.body.email.toLowerCase()
+            "email": req.body.email.toLowerCase(),
+            "firstName": req.body.firstName,
+            "lastName": req.body.lastName,
+            "address": req.body.address,
         });
 
         let user = await newUser.save(); 
@@ -96,7 +99,6 @@ exports.login = async (req, res) => {
         user.token.set("expiration", expiration)
         await user.save()
 
-        user.password = undefined;
         user.token.set("expiration", undefined);
         
         return res.status(200).json({
@@ -123,8 +125,6 @@ exports.getUser = async (req, res) => {
             });
         }
 
-        user.email = "***********"
-        user.password = undefined;
         user.token.set("token", undefined);
         user.token.set("expiration", undefined);
         
@@ -207,4 +207,30 @@ exports.logout = async (req, res) => {
             'success': false
         }); 
     }
-} 
+}
+
+exports.subscription = async (req, res) => {
+    try {
+        let user = await User.findById(req.body.id);
+        if (!user) {
+            return res.status(400).json({
+                'message': 'user does not exist',
+                'success': false
+            });
+        }
+        user.subscription = req.body.subscription;
+        await user.save();
+
+        return res.status(200).json({
+            'message': 'subscription updated',
+            'success': true
+        });
+
+    } catch (error) {
+        console.log("🔴 Internal error /users/subscription : ", error)
+        return res.status(500).json({
+            'message': 'Internal error',
+            'success': false
+        });        
+    }
+}
