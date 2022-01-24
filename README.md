@@ -8,7 +8,7 @@ https://docs.google.com/document/d/1YkmzxloSjHh_sj-6rzaNJ-ueXigVqL5o6Zycoyq7UMI/
 
 ## Installation
 
-- Node >= 15 (https://nodejs.org/en/)
+- Node >= 16 (https://nodejs.org/en/)
 - MongoDB (https://docs.mongodb.com/manual/administration/install-community/)
 
 ## Authors
