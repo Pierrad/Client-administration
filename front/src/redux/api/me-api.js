@@ -38,7 +38,7 @@ export const deleteAccount = async (payload) => {
       baseURL: process.env.REACT_APP_API_CLIENT_URL,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${payload.token}`
+        'Authorization': `${payload.token.token}`
       }
     });
     const res = await axios.delete(`users/${payload._id}`)
