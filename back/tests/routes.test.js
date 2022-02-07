@@ -176,3 +176,41 @@ describe("API Logout user route", () => {
     expect(res.body.success).toEqual(false);
   });
 });
+
+describe("API Delete route", () => {
+  // We need to make sure that the authentification token exists so after the logout test we login the user for the delete test
+  it("should login the user", async () => {
+    let res = await agent.post("/users/login").send({
+      email: "test@test.com",
+      password: "Azerty@123456",
+    });
+    user = res.body.user;
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toHaveProperty("user");
+  });
+
+  it("should delete a specific user", async () => {
+    let res = await agent
+      .delete(`/users/${user._id}`)
+      .set("authorization", user.token.token);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  it("should not delete a specific user with an invalid id", async () => {
+    let res = await agent
+      .delete("/users/fnjefkjnerfer")
+      .set("authorization", user.token.token);
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  it("should not delete a specific user with an invalid token", async () => {
+    let res = await agent
+      .delete(`/users/${user._id}`)
+      .set("authorization", "dnjkzedez");
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+  });
+});
