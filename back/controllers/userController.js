@@ -9,7 +9,25 @@ const User = require('../models/userModel')
 
 const USER_TOKEN_EXPIRATION = 86400;
 
-// fonction pour créer un utilisateur
+
+/**
+ * @api {post} /users Register a new user
+ * @apiName Register
+ * @apiGroup User
+ *
+ * @apiParam {string} username The user's username
+ * @apiParam {string} email The user's email
+ * @apiParam {string} password The user's password
+ * @apiParam {string} firstname The user's firstname
+ * @apiParam {string} lastname The user's lastname
+ * @apiParam {string} address The user's address
+ *
+ * @apiSuccess {Object} user User object created
+ * @apiError MissingArgs Missing arguments
+ * @apiError UserExists User already exists
+ * @apiError InternalError Internal error
+ * @apiError PasswordTooWeek Password is too week
+ */
 exports.register = async (req, res) => {
     try {
         // On check que l'on a bien tous les champs requis
@@ -81,7 +99,20 @@ exports.register = async (req, res) => {
     }
 }
 
-// fonction pour se connecter
+
+/**
+ * @api {post} /users/login Login an existing user
+ * @apiName Login
+ * @apiGroup User
+ *
+ * @apiParam {string} email The user's email
+ * @apiParam {string} password The user's password
+ *
+ * @apiSuccess {Object} user User object created
+ * @apiError MissingArgs Missing arguments
+ * @apiError UserDoesNotExists User doesn't exists
+ * @apiError InternalError Internal error
+ */
 exports.login = async (req, res) => {
     try {
         // On check que l'on a bien tous les champs requis
@@ -135,7 +166,19 @@ exports.login = async (req, res) => {
     }
 }
 
-// fonction pour récupérer les informations d'un utilisateur
+
+/**
+ * @api {get} /users/:id Get an existing user
+ * @apiName GetUser
+ * @apiGroup User
+ *
+ * @apiParam {string} id The user's ID
+ *
+ * @apiSuccess {Object} user User object created
+ * @apiError MissingArgs Missing arguments
+ * @apiError UserDoesNotExists User already exists
+ * @apiError InternalError Internal error
+ */
 exports.getUser = async (req, res) => {
     try {
         // On vérifie que l'utilisateur existe bien dans la base de donnée via son ID
@@ -167,7 +210,19 @@ exports.getUser = async (req, res) => {
     }
 }
 
-// fonction pour supprimer les informations d'un utilisateur
+/**
+ * @api {delete} /users/:id Remove an existing user
+ * @apiName RemoveUser
+ * @apiGroup User
+ *
+ * @apiParam {string} id The user's ID
+ * @apiParam {string} token The user's token authentication
+ *
+ * @apiSuccess {string} message A simple message to confirm the deletion
+ * @apiError Unauthorize Unauthorized
+ * @apiError UserDoesNotExists User doesn't exists
+ * @apiError InternalError Internal error
+ */
 exports.deleteUser = async (req, res) => {
     try {
         // On vérifie que l'utilisateur existe bien dans la base de donnée via son token d'authentification
@@ -215,7 +270,17 @@ exports.deleteUser = async (req, res) => {
     }
 }
 
-// fonction pour déconnecter un utilisateur
+/**
+ * @api {get} /users/logout Logout an existing user
+ * @apiName Logout
+ * @apiGroup User
+ *
+ * @apiParam {string} token The user's token authentication
+ *
+ * @apiSuccess {string} message A simple message to confirm the logout
+ * @apiError Unauthorize Unauthorized
+ * @apiError InternalError Internal error
+ */
 exports.logout = async (req, res) => {
     try {
         // On vérifie que l'utilisateur existe bien dans la base de donnée via son token d'authentification
@@ -245,7 +310,17 @@ exports.logout = async (req, res) => {
     }
 }
 
-// fonction pour modifier la subscription d'un utilisateur
+/**
+* @api {post} /users/subscription Modify the subscription of an existing user
+* @apiName Subscription
+* @apiGroup User
+*
+* @apiParam {string} id The user's ID
+*
+* @apiSuccess {string} message A simple message to confirm the modification of the subscription
+* @apiError UserDoesNotExists User already exists
+* @apiError InternalError Internal error
+*/
 exports.subscription = async (req, res) => {
     try {
         // On vérifie que l'utilisateur existe bien dans la base de donnée via son ID

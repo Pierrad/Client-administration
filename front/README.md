@@ -7,7 +7,7 @@
 - ```npm install```
 - ```npm run start```
 
-If you have an issue on ```npm run start``` about "chokidar@3: Error: Cannot find module 'chokidar'"
+If you have an issue on ```npm install``` or ```npm run start``` about "chokidar@3: Error: Cannot find module 'chokidar'"
 then run 
 - ```npm update --legacy-peer-deps```
 - ```npm run start```

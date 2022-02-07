@@ -1,13 +1,25 @@
 {
   "name": "api_client",
   "version": "1.0.0",
-  "description": "",
+  "description": "The API for the Client Administration",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "doc": "apidoc -i controllers/ -o doc/",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "author": "",
   "license": "ISC",
+  "apidoc": {
+    "title": "Client Administration API doc",
+    "version": "1.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
@@ -19,5 +31,11 @@
     "express-rate-limit": "^5.5.1",
     "helmet": "^4.6.0",
     "mongoose": "^6.1.1"
+  },
+  "devDependencies": {
+    "apidoc": "^0.50.3",
+    "cross-env": "^7.0.3",
+    "jest": "^27.4.7",
+    "supertest": "^6.2.2"
   }
 }
