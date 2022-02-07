@@ -156,3 +156,23 @@ describe("API Retrieve user route", () => {
     expect(res.body.success).toEqual(false);
   });
 });
+
+describe("API Logout user route", () => {
+  it("should logout the user", async () => {
+    let res = await agent
+      .get("/users/logout")
+      .set("authorization", user.token.token);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(true);
+  });
+
+  it("should not logout a user that is not authorized", async () => {
+    let res = await agent
+      .get("/users/logout")
+      .set("authorization", "fnmklerfernfmerfmerfrenfre");
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(false);
+  });
+});
