@@ -98,3 +98,45 @@ describe("API Register route", () => {
     expect(res.body.success).toEqual(false);
   });
 });
+
+describe("API Login route", () => {
+  it("should login the user", async () => {
+    let res = await agent.post("/users/login").send({
+      email: "test@test.com",
+      password: "Azerty@123456",
+    });
+    user = res.body.user;
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toHaveProperty("user");
+  });
+
+  it("should not login a user with missing args", async () => {
+    let res = await agent.post("/users/login").send({
+      email: "test@test.com",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(false);
+  });
+
+  it("should not login a user that does not exist", async () => {
+    let res = await agent.post("/users/login").send({
+      email: "test2@tesst.com",
+      password: "Azerty@123456",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(false);
+  });
+
+  it("should not login a user with a wrong password", async () => {
+    let res = await agent.post("/users/login").send({
+      email: "test@test.com",
+      password: "Azerty123456",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(false);
+  });
+});
