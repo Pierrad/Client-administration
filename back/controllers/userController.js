@@ -324,6 +324,7 @@ exports.logout = async (req, res) => {
 exports.subscription = async (req, res) => {
     try {
         // On vérifie que l'utilisateur existe bien dans la base de donnée via son ID
+
         let user = await User.findById(req.body.id);
         if (!user) {
             return res.status(400).json({

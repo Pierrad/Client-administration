@@ -21,3 +21,5 @@ This command switch the Node environment to testing and connect the API to a tes
 do not modify the production environment. 
 
 We use Jest and Supertest for testing.
+
+You cannot run the back and the test at the same time.
