@@ -140,3 +140,19 @@ describe("API Login route", () => {
     expect(res.body.success).toEqual(false);
   });
 });
+
+describe("API Retrieve user route", () => {
+  it("should retrieve the user", async () => {
+    let res = await agent.get(`/users/${user._id}`);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toHaveProperty("user");
+  });
+
+  it("should not retrieve a user that does not exist", async () => {
+    let res = await agent.get("/users/61f7943aa0d59ef067dd070d");
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body.success).toEqual(false);
+  });
+});
